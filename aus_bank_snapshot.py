@@ -12,6 +12,15 @@ from io import BytesIO
 import plotly.express as px
 import streamlit as st
 
+st.set_page_config(page_title="Bank Snapshot", page_icon=🇦🇺)
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
+
 @st.cache_resource()
 def load_data():
     deta_2 = Deta(st.secrets["deta_key"])
