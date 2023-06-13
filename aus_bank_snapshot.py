@@ -57,17 +57,16 @@ aus_data = load_data()
 cats = ["Overall"] + list(aus_data.User_Tags.unique())
 cats.remove("personal_loans")
 tabs =  st.tabs([i.replace("_", " ").title() + " || " if "_" in i else i + " || " for i in cats])
-st.write(cats)
+
 slider = st.slider(label="Select the number of domains", min_value=10, max_value=50, value=10, step=5)
 for i, tab in enumerate(tabs):
     with tab:
         chart_data = organic_aggregation(aus_data, tag=cats[i])
         st.plotly_chart(organic_performance_chart(aus_data, tag=cats[i], num=slider))
-        st.write("The leader of the " +  cats[i].replace("_", " ") + " category is " + chart_data.Domain[0] + " with a market share of " 
-                 + str(chart_data.Market_Share[0]) + "%. Completing the top 3 are " +  chart_data.Domain[1] +  " and " 
-                 + chart_data.Domain[2]  
-                 + " with market shares of " + str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2)) 
-                 + "% and " +  str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2)) + "% less than the leader.")
+        st.write(f"The leader of the **{cats[i].replace("_", " ")}** category is **{chart_data.Domain[0]}** with a market share of {str(chart_data.Market_Share[0])}%. Completing the top 3 are **{chart_data.Domain[1]}** and  **{chart_data.Domain[2]}**.")  
+                
+                # + " with market shares of " + str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2)) 
+                # + "% and " +  str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2)) + "% less than the leader.")
         
 st.divider() 
 st.write("At Wells & Harris, we provide due diligence for your marketing spend through our data-driven research. See how we can help you make smarter marketing decisions today – [get in touch](https://www.wellsandharris.com)")
