@@ -50,8 +50,10 @@ def organic_performance_chart(file, tag, num=10):
     return fig
 
 st.title("Australian Bank Organic Performance Snapshot - June 2023")
+st.subheader("by [Wells & Harris](https://www.wellsandharris.com)")
 aus_data = load_data()
 cats = ["Overall"] + list(aus_data.User_Tags.unique())
+cats.remove("personal_loans")
 tabs =  st.tabs([i + " || " for i in cats])
 slider = st.slider(label="Select the number of domains", min_value=10, max_value=50, value=10, step=5)
 for i, tab in enumerate(tabs):
@@ -61,5 +63,8 @@ for i, tab in enumerate(tabs):
         st.write("The leader of the " +  cats[i] + " category is " + chart_data.Domain[0] + " with a market share of " 
                  + str(chart_data.Market_Share[0]) + "%. Completing the top 3 are " +  chart_data.Domain[1] +  " and " 
                  + chart_data.Domain[2]  
-                 + " with market shares of " + str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2)) 
+                 + " with market shares of " + str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2)) + "%" +
                  + " and " +  str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2)) + "% less than the leader.")
+        
+st.divider() 
+st.text("At Wells & Harris, we provide due diligence for your marketing spend through our data-driven research. See how we can help you make smarter marketing decisions today – [get in touch](https://www.wellsandharris.com)")
