@@ -67,4 +67,4 @@ for i, tab in enumerate(tabs):
                  + "% and " +  str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2)) + "% less than the leader.")
         
 st.divider() 
-st.text("At Wells & Harris, we provide due diligence for your marketing spend through our data-driven research. See how we can help you make smarter marketing decisions today – [get in touch](https://www.wellsandharris.com)")
+st.write("At Wells & Harris, we provide due diligence for your marketing spend through our data-driven research. See how we can help you make smarter marketing decisions today – [get in touch](https://www.wellsandharris.com)")
