@@ -33,7 +33,8 @@ def load_data():
 
 
 def organic_aggregation(data, tag, grouping=["Domain"]):
-    data = data.query("User_Tags == @tag")
+    if tag != "Overall":
+        data = data.query("User_Tags == @tag")
     tmax = data.p1_clicks.sum()
     master_organic_agg = data.groupby(by=grouping, sort=False).agg("sum").reset_index().sort_values(by="Monthly_Clicks", ascending=False, ignore_index=True)
     master_organic_agg["Average_Rank"] =  master_organic_agg[["p1_count", "p2_count", "p3_count", "p4_count", "p5_count", "p6_count", "p7_count", "p8_count", "p9_count", "p10_count"]].multiply([1,2,3,4,5,6,7,8,9,10]).sum(axis=1) / master_organic_agg["Top_10_Rankings"]
@@ -50,7 +51,7 @@ def organic_performance_chart(file, tag, num=10):
 
 st.title("Australian Bank Organic Performance Snapshot - June 2023")
 aus_data = load_data()
-cats = list(aus_data.User_Tags.unique())
+cats = ["Overall"] + list(aus_data.User_Tags.unique())
 tabs =  st.tabs([i + " || " for i in cats])
 slider = st.slider(label="Select the number of domains", min_value=10, max_value=50, value=10, step=5)
 for i, tab in enumerate(tabs):
