@@ -63,7 +63,7 @@ for i, tab in enumerate(tabs):
     with tab:
         chart_data = organic_aggregation(aus_data, tag=cats[i])
         st.plotly_chart(organic_performance_chart(aus_data, tag=cats[i], num=slider))
-        if cats[i].isupper():
+        if cats[i].isupper() == False:
             category = cats[i].replace("_", " ").lower()
         else:
             category = cats[i]
