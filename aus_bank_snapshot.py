@@ -37,7 +37,7 @@ def organic_aggregation(data, tag, grouping=["Domain"]):
         data = data.query("User_Tags == @tag")
     tmax = data.p1_clicks.sum()
     master_organic_agg = data.groupby(by=grouping, sort=False).agg("sum").reset_index().sort_values(by="Monthly_Clicks", ascending=False, ignore_index=True)
-    master_organic_agg["Average_Rank"] =  master_organic_agg[["p1_count", "p2_count", "p3_count", "p4_count", "p5_count", "p6_count", "p7_count", "p8_count", "p9_count", "p10_count"]].multiply([1,2,3,4,5,6,7,8,9,10]).sum(axis=1) / master_organic_agg["Top_10_Rankings"]
+    master_organic_agg["Average_Rank"] =  round(master_organic_agg[["p1_count", "p2_count", "p3_count", "p4_count", "p5_count", "p6_count", "p7_count", "p8_count", "p9_count", "p10_count"]].multiply([1,2,3,4,5,6,7,8,9,10]).sum(axis=1) / master_organic_agg["Top_10_Rankings"], 2)
     master_organic_agg["Pct_Rank_1"] = master_organic_agg["p1_count"] / master_organic_agg["Top_10_Rankings"]
     master_organic_agg["Market_Share"] = round((master_organic_agg["Monthly_Clicks"] / tmax) * 100, 2)
     return master_organic_agg
@@ -60,7 +60,7 @@ for i, tab in enumerate(tabs):
     with tab:
         chart_data = organic_aggregation(aus_data, tag=cats[i])
         st.plotly_chart(organic_performance_chart(aus_data, tag=cats[i], num=slider))
-        st.write("The leader of the " +  cats[i] + " category is " + chart_data.Domain[0] + " with a market share of " 
+        st.write("The leader of the " +  cats[i].replace("_", " ") + " category is " + chart_data.Domain[0] + " with a market share of " 
                  + str(chart_data.Market_Share[0]) + "%. Completing the top 3 are " +  chart_data.Domain[1] +  " and " 
                  + chart_data.Domain[2]  
                  + " with market shares of " + str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2)) 
