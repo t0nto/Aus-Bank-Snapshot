@@ -45,7 +45,7 @@ def organic_aggregation(data, tag, grouping=["Domain"]):
 def organic_performance_chart(file, tag, num=10):
     file = organic_aggregation(file, tag)
     data = file.head(num)[["Domain", "Average_Rank", "Market_Share", "Top_10_Rankings"]]
-    fig = px.scatter(data, x="Average_Rank", y="Market_Share", color="Domain", size='Top_10_Rankings', title='Top ' + str(num) + ' Domains Organic Performance for ' + tag)
+    fig = px.scatter(data, x="Average_Rank", y="Market_Share", color="Domain", size='Top_10_Rankings', title='Top ' + str(num) + ' Domains Organic Performance for ' + tag.replace("_", " ").title() + " Keyword Set")
     fig.update_xaxes(autorange="reversed")
     return fig
 
@@ -54,7 +54,7 @@ st.subheader("by [Wells & Harris](https://www.wellsandharris.com)")
 aus_data = load_data()
 cats = ["Overall"] + list(aus_data.User_Tags.unique())
 cats.remove("personal_loans")
-tabs =  st.tabs([i + " || " for i in cats])
+tabs =  st.tabs([i.replace("_", " ").title() + " || " for i in cats])
 slider = st.slider(label="Select the number of domains", min_value=10, max_value=50, value=10, step=5)
 for i, tab in enumerate(tabs):
     with tab:
