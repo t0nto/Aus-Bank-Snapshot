@@ -47,7 +47,7 @@ def organic_performance_chart(file, tag, num=10):
     if "_" in tag:
         tag.replace("_", " ").title()
     data = file.head(num)[["Domain", "Average_Rank", "Market_Share", "Top_10_Rankings"]]
-    fig = px.scatter(data, x="Average_Rank", y="Market_Share", color="Domain", size='Top_10_Rankings', title='Top ' + str(num) + ' Domains for ' + tag + " Keyword Set")
+    fig = px.scatter(data, x="Average_Rank", y="Market_Share", color="Domain", size='Top_10_Rankings', title='Top ' + str(num) + ' Domains for ' + tag.replace("_", " ").title() + " Keyword Set")
     fig.update_xaxes(autorange="reversed")
     return fig
 
