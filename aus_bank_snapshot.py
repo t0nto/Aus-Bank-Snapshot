@@ -57,6 +57,7 @@ aus_data = load_data()
 cats = ["Overall"] + list(aus_data.User_Tags.unique())
 cats.remove("personal_loans")
 tabs =  st.tabs([i.replace("_", " ").title() + " || " if "_" in i else i + " || " for i in cats])
+st.write(cats)
 slider = st.slider(label="Select the number of domains", min_value=10, max_value=50, value=10, step=5)
 for i, tab in enumerate(tabs):
     with tab:
