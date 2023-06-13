@@ -63,8 +63,8 @@ for i, tab in enumerate(tabs):
     with tab:
         chart_data = organic_aggregation(aus_data, tag=cats[i])
         st.plotly_chart(organic_performance_chart(aus_data, tag=cats[i], num=slider))
-        st.write(f"The leader of the **{cats[i]}** keyword set is **{chart_data.Domain[0]}** with a market share of **{str(chart_data.Market_Share[0])}%**.") 
-        st.write(f"Completing the top 3 are **{chart_data.Domain[1]}** and **{chart_data.Domain[2]}** with market shares of {str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2))}% and {str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2))}% less than the leader.")
+        category = cats[i].replace("_", " ")
+        st.write(f"The leader of the **{category}** keyword set is **{chart_data.Domain[0]}** with a market share of **{str(chart_data.Market_Share[0])}%**. Completing the top 3 are **{chart_data.Domain[1]}** and **{chart_data.Domain[2]}** with market shares of **{str(round(chart_data.Market_Share[0]-chart_data.Market_Share[1],2))}%** and **{str(round(chart_data.Market_Share[0]-chart_data.Market_Share[2],2))}%** less than the leader.")
         
 st.divider() 
 st.write("At Wells & Harris, we provide due diligence for your marketing spend through our data-driven research. See how we can help you make smarter marketing decisions today – [get in touch](https://www.wellsandharris.com)")
