@@ -58,7 +58,7 @@ cats = ["Overall"] + list(aus_data.User_Tags.unique())
 cats.remove("personal_loans")
 tabs =  st.tabs([i.replace("_", " ").title() + " || " if "_" in i else i + " || " for i in cats])
 
-slider = st.slider(label="Select the number of domains", min_value=10, max_value=100, value=10, step=5)
+slider = st.slider(label="Select the number of domains", min_value=10, max_value=300, value=10, step=5)
 for i, tab in enumerate(tabs):
     with tab:
         chart_data = organic_aggregation(aus_data, tag=cats[i])
