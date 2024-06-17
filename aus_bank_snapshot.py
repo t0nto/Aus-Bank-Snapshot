@@ -7,7 +7,7 @@ Created on Fri Jun  9 10:56:37 2023
 """
 
 import pandas as pd
-from deta import Deta
+#from deta import Deta
 from io import BytesIO
 import plotly.express as px
 import streamlit as st
@@ -23,12 +23,12 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 @st.cache_resource()
 def load_data():
-    deta_2 = Deta(st.secrets["deta_key"])
-    deta_drive_2 = deta_2.Drive(st.secrets["deta_name"])
-    open_connection = deta_drive_2.get('aus_bank_snapshot')
-    read_content = open_connection.read()
-    open_connection.close()
-    aus_data = pd.read_parquet(BytesIO(read_content))
+    #deta_2 = Deta(st.secrets["deta_key"])
+   # deta_drive_2 = deta_2.Drive(st.secrets["deta_name"])
+   # open_connection = deta_drive_2.get('aus_bank_snapshot')
+    #read_content = open_connection.read()
+ #   open_connection.close()
+    aus_data = pd.read_parquet("aus_bank_snapshot.parquet")
     return aus_data
 
 
